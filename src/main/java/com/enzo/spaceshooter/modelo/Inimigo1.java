@@ -3,7 +3,6 @@ package com.enzo.spaceshooter.modelo;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class Inimigo1 {
     private Image imagem;
     private int x, y;
@@ -13,37 +12,39 @@ public class Inimigo1 {
     // private static final int LARGURA = 1350;
     private static final int VELOCIDADE = 5;
 
-    public Inimigo1(int x , int y) {
+    public Inimigo1(int x, int y) {
         this.x = x;
         this.y = y;
         isVisivel = true;
     }
-    public void load(){
+
+    public void load() {
         ImageIcon referencia = new ImageIcon("componentes-graficos/PNG/Enemies/enemyBlack1.png");
         imagem = referencia.getImage();
 
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);
     }
-    public void update(){
+
+    public void update() {
         this.x -= VELOCIDADE;
 
         if (this.x + this.imagem.getWidth(null) < 0) {
             isVisivel = false;
         }
     }
-    public Rectangle getBounds(){
+
+    public Rectangle getBounds() {
         return new Rectangle(x, y, largura, altura);
     }
 
-    public static int getVelocidade(){
+    public static int getVelocidade() {
         return VELOCIDADE;
     }
 
     public int getX() {
         return x;
     }
-
 
     public int getY() {
         return y;

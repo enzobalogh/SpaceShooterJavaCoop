@@ -16,15 +16,12 @@ public class PlayerEstado implements Serializable {
         return x;
     }
 
-
     public int getY() {
         return y;
     }
 
-
     public int getVidas() {
         return vidas;
     }
-
 
 }

@@ -14,7 +14,7 @@ public class Player {
     private boolean isVisivel;
     private int vidaPLayer;
 
-    private List <Tiro> tiros;
+    private List<Tiro> tiros;
 
     public Player() {
         this.x = x;
@@ -24,7 +24,8 @@ public class Player {
 
         tiros = new ArrayList<Tiro>();
     }
-    public void load(){
+
+    public void load() {
 
         ImageIcon referencia = new ImageIcon("componentes-graficos/PNG/playerShip1_blue.png");
         imagem = referencia.getImage();
@@ -32,60 +33,61 @@ public class Player {
         altura = imagem.getHeight(null);
         largura = imagem.getWidth(null);
     }
-    public void update(){
+
+    public void update() {
         // FAZ A NAVE SE MOVER
         x += dx;
         y += dy;
     }
 
-    public void tiroSimples(){
+    public void tiroSimples() {
         Tiro tiro = new Tiro(x + largura, y + (altura / 4));
         tiro.load();
         tiros.add(tiro);
     }
-    public Rectangle getBounds(){
+
+    public Rectangle getBounds() {
         return new Rectangle(x, y, largura, altura);
     }
 
-    public void keyPressed(KeyEvent tecla){
+    public void keyPressed(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
-        if(codigo == KeyEvent.VK_A){
+        if (codigo == KeyEvent.VK_A) {
             tiroSimples();
         }
-        if(codigo == KeyEvent.VK_UP){
+        if (codigo == KeyEvent.VK_UP) {
             dy = -3;
         }
 
-        if(codigo == KeyEvent.VK_DOWN){
+        if (codigo == KeyEvent.VK_DOWN) {
             dy = 3;
         }
-        if(codigo == KeyEvent.VK_LEFT){
+        if (codigo == KeyEvent.VK_LEFT) {
             dx = -3;
         }
-        if(codigo == KeyEvent.VK_RIGHT){
+        if (codigo == KeyEvent.VK_RIGHT) {
             dx = 3;
         }
 
-
     }
-    public void keyRelease(KeyEvent tecla){
+
+    public void keyRelease(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
-        if(codigo == KeyEvent.VK_UP){
+        if (codigo == KeyEvent.VK_UP) {
             dy = 0;
         }
-        if(codigo == KeyEvent.VK_DOWN){
+        if (codigo == KeyEvent.VK_DOWN) {
             dy = 0;
         }
-        if(codigo == KeyEvent.VK_LEFT){
+        if (codigo == KeyEvent.VK_LEFT) {
             dx = 0;
         }
-        if(codigo == KeyEvent.VK_RIGHT){
+        if (codigo == KeyEvent.VK_RIGHT) {
             dx = 0;
         }
     }
-
 
     public int getX() {
         return x;

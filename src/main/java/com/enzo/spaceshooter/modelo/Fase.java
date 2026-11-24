@@ -52,13 +52,13 @@ public class Fase extends JPanel implements ActionListener {
         timer.start();
     }
 
-    public void inicializaInimigos(){
-        int coordenadas [] = new int [8];
+    public void inicializaInimigos() {
+        int coordenadas[] = new int[8];
         inimigo1List = new ArrayList<Inimigo1>();
 
         for (int i = 0; i < coordenadas.length; i++) {
-            int x = (int)(Math.random()*8000+1920);
-            int y = (int)(Math.random()*650+50);
+            int x = (int) (Math.random() * 8000 + 1920);
+            int y = (int) (Math.random() * 650 + 50);
 
             Inimigo1 inimigo = new Inimigo1(x, y);
             inimigo.load();
@@ -67,9 +67,10 @@ public class Fase extends JPanel implements ActionListener {
         }
 
     }
-    public void desenhaVidas(Graphics graficos){
+
+    public void desenhaVidas(Graphics graficos) {
         int vidas = player.getVidaPlayer();
-        for (int i = 0; i < vidas ; i++) {
+        for (int i = 0; i < vidas; i++) {
             int x = 1100 + (i * 35);
             int y = 20;
 
@@ -83,10 +84,10 @@ public class Fase extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         Graphics2D graficos = (Graphics2D) g.create();
-        if(emJogo){
+        if (emJogo) {
             // Desenha o fundo
             graficos.drawImage(fundo, xFundo, 0, getWidth(), getHeight(), this);
-            //Desenha cópia do fundo
+            // Desenha cópia do fundo
             graficos.drawImage(fundo, xFundo + getWidth(), 0, getWidth(), getHeight(), this);
             // Desenha a nave com rotação independente
             Graphics2D gPlayer = (Graphics2D) graficos.create();
@@ -96,15 +97,13 @@ public class Fase extends JPanel implements ActionListener {
             gPlayer.rotate(
                     Math.toRadians(90),
                     player.getX() + player.getImagem().getWidth(null) / 2.0,
-                    player.getY() + player.getImagem().getHeight(null) / 2.0
-            );
+                    player.getY() + player.getImagem().getHeight(null) / 2.0);
 
             gPlayer.drawImage(
                     player.getImagem(),
                     player.getX(),
                     player.getY(),
-                    this
-            );
+                    this);
 
             gPlayer.dispose();
 
@@ -122,20 +121,18 @@ public class Fase extends JPanel implements ActionListener {
                 gTiro.rotate(
                         Math.toRadians(90),
                         m.getX() + m.getImagem().getWidth(null) / 2.0,
-                        m.getY() + m.getImagem().getHeight(null) / 2.0
-                );
+                        m.getY() + m.getImagem().getHeight(null) / 2.0);
 
                 gTiro.drawImage(
                         m.getImagem(),
                         m.getX(),
                         m.getY(),
-                        this
-                );
+                        this);
 
                 gTiro.dispose();
             }
 
-            for (Inimigo1 inimigo1 : inimigo1List){
+            for (Inimigo1 inimigo1 : inimigo1List) {
                 if (inimigo1.getImagem() == null) {
                     continue;
                 }
@@ -145,25 +142,25 @@ public class Fase extends JPanel implements ActionListener {
                 gInimigo1.rotate(
                         Math.toRadians(90),
                         inimigo1.getX() + inimigo1.getImagem().getWidth(null) / 2.0,
-                        inimigo1.getY() + inimigo1.getImagem().getHeight(null) / 2.0
-                );
+                        inimigo1.getY() + inimigo1.getImagem().getHeight(null) / 2.0);
 
                 gInimigo1.drawImage(
                         inimigo1.getImagem(),
                         inimigo1.getX(),
                         inimigo1.getY(),
-                        this
-                );
+                        this);
 
                 gInimigo1.dispose();
             }
 
-            if(jogoGanho){
-                ImageIcon triunfo = new ImageIcon("C:\\Users\\Ícaro\\Downloads\\SpaceShooterJava-main\\SpaceShooterJava-main\\Backgrounds\\jogoGanho.jpeg");
+            if (jogoGanho) {
+                ImageIcon triunfo = new ImageIcon(
+                        "C:\\Users\\Ícaro\\Downloads\\SpaceShooterJava-main\\SpaceShooterJava-main\\Backgrounds\\jogoGanho.jpeg");
                 graficos.drawImage(triunfo.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         } else {
-            ImageIcon fimJogo = new ImageIcon("C:\\Users\\Ícaro\\Downloads\\SpaceShooterJava-main\\SpaceShooterJava-main\\Backgrounds\\fimdejogo.jpeg");
+            ImageIcon fimJogo = new ImageIcon(
+                    "C:\\Users\\Ícaro\\Downloads\\SpaceShooterJava-main\\SpaceShooterJava-main\\Backgrounds\\fimdejogo.jpeg");
             graficos.drawImage(fimJogo.getImage(), 0, 0, getWidth(), getHeight(), this);
         }
 
@@ -176,7 +173,7 @@ public class Fase extends JPanel implements ActionListener {
             repaint();
             return;
         }
-        if(jogoPausado){
+        if (jogoPausado) {
             repaint();
             return;
         }
@@ -189,9 +186,9 @@ public class Fase extends JPanel implements ActionListener {
 
         List<Tiro> tiros = player.getTiros();
 
-        for(int i = 0;i<tiros.size();i++){
+        for (int i = 0; i < tiros.size(); i++) {
             Tiro m = tiros.get(i);
-            if(m.isVisivel()){
+            if (m.isVisivel()) {
                 m.update();
             } else {
                 tiros.remove(i);
@@ -200,9 +197,9 @@ public class Fase extends JPanel implements ActionListener {
 
         for (int o = 0; o < inimigo1List.size(); o++) {
             Inimigo1 in = inimigo1List.get(o);
-            if(in.isVisivel()){
+            if (in.isVisivel()) {
                 in.update();
-            } else{
+            } else {
                 inimigo1List.remove(o);
             }
 
@@ -210,7 +207,7 @@ public class Fase extends JPanel implements ActionListener {
 
         checaColisoes();
 
-        if(emJogo && inimigo1List.isEmpty() && !jogoGanho){
+        if (emJogo && inimigo1List.isEmpty() && !jogoGanho) {
             jogoGanho = true;
             if (!audioFinalTocado) {
                 audioFinalTocado = true;
@@ -222,22 +219,22 @@ public class Fase extends JPanel implements ActionListener {
         repaint();
     }
 
-    public void checaColisoes(){
+    public void checaColisoes() {
         Rectangle formaPlayer = player.getBounds();
         Rectangle formaInimigo1;
         Rectangle formaTiro;
 
-        for (int i = 0; i < inimigo1List.size() ; i++) {
+        for (int i = 0; i < inimigo1List.size(); i++) {
             Inimigo1 tempInimigo1 = inimigo1List.get(i);
             formaInimigo1 = tempInimigo1.getBounds();
-            if(formaPlayer.intersects(formaInimigo1)) {
+            if (formaPlayer.intersects(formaInimigo1)) {
                 player.perderVida();
                 tempInimigo1.setVisivel(false);
 
             }
         }
 
-        if (player.getVidaPlayer() == 0){
+        if (player.getVidaPlayer() == 0) {
             player.setVisivel(false);
             emJogo = false;
 
@@ -252,10 +249,10 @@ public class Fase extends JPanel implements ActionListener {
         for (int j = 0; j < tiros.size(); j++) {
             Tiro tempTiro = tiros.get(j);
             formaTiro = tempTiro.getBounds();
-            for (int o = 0; o < inimigo1List.size() ; o++) {
+            for (int o = 0; o < inimigo1List.size(); o++) {
                 Inimigo1 tempInimigo1 = inimigo1List.get(o);
                 formaInimigo1 = tempInimigo1.getBounds();
-                if(formaTiro.intersects(formaInimigo1)){
+                if (formaTiro.intersects(formaInimigo1)) {
                     tempInimigo1.setVisivel(false);
                     tempTiro.setVisivel(false);
                 }
@@ -264,7 +261,7 @@ public class Fase extends JPanel implements ActionListener {
 
     }
 
-    private class TecladoAdapter extends KeyAdapter{
+    private class TecladoAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -276,11 +273,13 @@ public class Fase extends JPanel implements ActionListener {
                 player.keyPressed(e);
             }
         }
+
         @Override
-        public void keyReleased(KeyEvent e){
+        public void keyReleased(KeyEvent e) {
             player.keyRelease(e);
         }
     }
+
     public void setJogoPausado(boolean jogoPausado) {
         this.jogoPausado = jogoPausado;
     }
